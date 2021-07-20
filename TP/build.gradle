@@ -1,0 +1,72 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.0'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+    id 'org.asciidoctor.convert' version '2.4.0'
+}
+group = 'com.github'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.querydsl:querydsl-jpa'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'com.querydsl:querydsl-apt:4.4.0:jpa'
+    annotationProcessor 'javax.annotation:javax.annotation-api'
+    implementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    runtimeOnly 'com.h2database:h2'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+}
+def generated = "src-gen/main/java"
+sourceSets {
+    main {
+        java {
+            srcDir "src-gen/main/java"
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean {
+    delete generated
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'spring.profiles.active', 'test'
+}

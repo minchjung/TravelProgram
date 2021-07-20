@@ -1,0 +1,18 @@
+= Project API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[프로그램-API]]
+== 단건 조회
+operation::program-controller-test/get-program-test[snippets='curl-request,http-request,path-parameters,http-response,response-body']
+== 페이지 조회
+operation::program-controller-test/get-page-program-test[snippets='curl-request,http-request,request-parameters,http-response,response-body']
+
+== 저장
+operation::program-controller-test/save-program-test[snippets='curl-request,http-request,http-response,request-body,request-fields,response-body']
+== 수정
+operation::program-controller-test/update-program-test[snippets='curl-request,http-request,http-response,request-body,request-fields,response-body']
