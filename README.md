@@ -1,4 +1,4 @@
-# SW 프로그램 개발과정 직무 부트캠프 과정   
+# SW 프로그램 개발과정   
 ### Week 1 
 * [기능 전체 Overview](https://github.com/minchjung/SpringStudy/wiki/%EA%B8%B0%EB%8A%A5-%EC%A0%84%EC%B2%B4-Overview)  
 * [기능 상세 기술1](https://github.com/minchjung/SpringStudy/wiki/%EA%B8%B0%EB%8A%A5-%EC%83%81%EC%84%B8-%EA%B8%B0%EC%88%A01)  
